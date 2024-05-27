@@ -1,0 +1,75 @@
+import os
+menu = """
+    [d] Depositar
+    [s] Sacar
+    [e] Extrato
+    [q] Sair
+
+    => """
+
+saques_diarios = 0 # maximo 3
+LIMITE_SAQUES = 3
+saldo = 0
+limite = 500
+extrato = ""
+numero_do_deposito = 1
+
+while True:
+    opcao = input(menu)
+
+    if opcao == 'd':
+        deposito = float(input("Digite o valor a ser depositado: "))
+
+        if deposito >= 0:
+            extrato += f'deposito: {str(numero_do_deposito)} ---> R${deposito:.2f}\n'
+            numero_do_deposito += 1
+            saldo += deposito
+            os.system('cls')
+            print("Depositado.")
+
+        else:
+            os.system('cls')
+            print("Valores negativos não podem ser depositados.")
+
+    elif opcao == 's':
+
+        if saques_diarios < LIMITE_SAQUES:
+            saque = float(input("Digite a quantidade que você quer sacar: "))
+
+            if saque < 0:
+                os.system('cls')
+                print("Operação falhou! Valor informado é inválido.")
+
+            elif saque <= limite and saldo >= saque:
+                saldo -= saque
+                saques_diarios += 1
+                extrato += f'Saque: {saques_diarios} ---> R${saque:.2f}\n'
+                os.system('cls')
+                print("Sacado.")
+
+            elif(saque > saldo):
+                os.system('cls')
+                print("Não é possível realizar o saque por falta de saldo.")
+
+            else:
+                os.system('cls')
+                print("Não foi possível realizar o saque por conta do seu limite(R$500.00).")
+
+        else:
+            os.system('cls')
+            print("Você já ultrapassou o limite de saques")
+
+    elif opcao == 'e':
+        os.system('cls')
+        print("-"*15 + 'EXTRATO' + "-"*15)
+        print("Não foram realizadas movimentações." if not extrato else extrato)
+        print(f'Saldo da conta: {saldo:.2f}')
+        print(f'Quantidade de Saques do dia: {saques_diarios}')
+        print("-"*37)
+
+    elif opcao == 'q':
+        break
+
+    else:
+        os.system('cls')
+        print("Operação inválida, porfavor selecione novamente a operação desejada.")
