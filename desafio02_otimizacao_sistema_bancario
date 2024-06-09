@@ -64,6 +64,7 @@ def exibir_extrato(saldo, saques_diarios, /, *, extrato):
     print("-"*37)
 
 def criar_usuario(usuarios):
+    os.system('cls')
     cpf = input("Digite seu CPF (Apenas números): ")
     usuario = filtrar_usuarios(cpf, usuarios)
 
@@ -84,6 +85,7 @@ def filtrar_usuarios(cpf, usuarios):
     return usuarios_filtrados[0] if usuarios_filtrados else None
 
 def criar_conta(AGENCIA, numero_da_conta, usuarios):
+    os.system('cls')
     cpf = input("Digite o CPF do usuário: ")
     usuario = filtrar_usuarios(cpf, usuarios)
 
@@ -94,13 +96,14 @@ def criar_conta(AGENCIA, numero_da_conta, usuarios):
     print("Usuário não encontrado.")
 
 def listar_contas(contas):
+    os.system('cls')
 
     print("Não foram criadas contas." if not contas else "")
 
     for conta in contas:
         print('Agencia: ',conta["agencia"])
         print('Numero da conta: ',conta["numero_da_conta"])
-        print("Titular: ",conta["usuario"]["nome"])
+        print("Titular: ",conta["usuario"]['nome'])
 
     print("=" * 100)
     
